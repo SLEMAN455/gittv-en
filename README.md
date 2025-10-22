@@ -1,8 +1,8 @@
 # 📺 IPTV Playlist Generator (Auto Refresh)
 
 ![Status](https://github.com/susuint/gittv-en/actions/workflows/update-playlist-public.yml/badge.svg)
-![Channels](https://img.shields.io/badge/channels-9127-success)
-![Last Updated](https://img.shields.io/badge/updated-2025-10-22%2016:22%20UTC-blue)
+![Channels](https://img.shields.io/badge/channels-9355-success)
+![Last Updated](https://img.shields.io/badge/updated-2025-10-22%2021:40%20UTC-blue)
 
 ## 🚀 URL Playlist Tự Động Cập Nhật
 
