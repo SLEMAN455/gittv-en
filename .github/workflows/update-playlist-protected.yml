@@ -1,0 +1,167 @@
+# Tên tệp: .github/workflows/update-playlist-protected.yml
+
+name: Update IPTV Playlist (Zero Downtime - Protected)
+
+on:
+  schedule:
+    # Chạy 4 lần/ngày vào các thời điểm tối ưu
+    - cron: '0 3,9,15,21 * * *'
+  
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Chế độ chạy (normal/quick/express)'
+        required: false
+        default: 'normal'
+        type: choice
+        options:
+          - normal
+          - quick
+          - express
+
+permissions:
+  contents: write
+
+# Ngăn chặn các lần chạy chồng chéo, đảm bảo tính toàn vẹn
+concurrency:
+  group: playlist-update
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: '3.11'
+  OUTPUT_FILENAME: 'playlist.m3u'
+  PROTECTED_FILENAME: 'playlist.zip'
+  BACKUP_FILENAME: 'playlist.zip.backup'
+
+jobs:
+  update-playlist:
+    name: Update & Protect Playlist
+    runs-on: ubuntu-latest
+    timeout-minutes: 25 # Giới hạn thời gian chạy tối đa
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python with Cache
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install Dependencies
+        run: pip install --no-cache-dir aiohttp
+      
+      - name: Configure Run Mode
+        run: |
+          MODE="${{ github.event.inputs.mode }}"
+          if [ "$MODE" == "quick" ]; then
+            sed -i 's/CHANNEL_CHECK_TIMEOUT = 8/CHANNEL_CHECK_TIMEOUT = 6/g' iptv_generator_optimized.py
+            sed -i 's/MAX_CONCURRENT_CHECKS = 40/MAX_CONCURRENT_CHECKS = 50/g' iptv_generator_optimized.py
+            echo "⚡ Chế độ Quick: timeout 6s, 50 kết nối đồng thời"
+          elif [ "$MODE" == "express" ]; then
+            sed -i 's/CHANNEL_CHECK_TIMEOUT = 8/CHANNEL_CHECK_TIMEOUT = 4/g' iptv_generator_optimized.py
+            sed -i 's/MAX_CONCURRENT_CHECKS = 40/MAX_CONCURRENT_CHECKS = 60/g' iptv_generator_optimized.py
+            echo "🚀 Chế độ Express: timeout 4s, 60 kết nối đồng thời"
+          else
+            echo "🔄 Chế độ Normal: timeout 8s, 40 kết nối đồng thời"
+          fi
+
+      - name: Backup Current Protected Playlist
+        id: backup
+        run: |
+          if [ -f "${{ env.PROTECTED_FILENAME }}" ]; then
+            cp "${{ env.PROTECTED_FILENAME }}" "${{ env.BACKUP_FILENAME }}"
+            echo "📦 Đã sao lưu playlist hiện tại vào ${{ env.BACKUP_FILENAME }}"
+            echo "has_backup=true" >> $GITHUB_OUTPUT
+          else
+            echo "🆕 Lần chạy đầu tiên, không có gì để sao lưu."
+            echo "has_backup=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate New Playlist
+        run: python iptv_generator_optimized.py
+      
+      - name: Validate New Playlist
+        id: validate
+        run: |
+          if [ ! -f "${{ env.OUTPUT_FILENAME }}" ]; then
+            echo "valid=false" >> $GITHUB_OUTPUT
+            echo "❌ Lỗi: Script không tạo ra tệp playlist.m3u."
+            exit 0
+          fi
+          
+          NEW_CHANNELS=$(grep -c "^http" "${{ env.OUTPUT_FILENAME }}" || echo "0")
+          # Yêu cầu tối thiểu 50 kênh để coi là hợp lệ
+          if [ $NEW_CHANNELS -lt 50 ]; then
+            echo "valid=false" >> $GITHUB_OUTPUT
+            echo "❌ Xác thực thất bại: Số lượng kênh quá ít ($NEW_CHANNELS). Sử dụng bản sao lưu nếu có."
+            exit 0
+          fi
+          
+          echo "valid=true" >> $GITHUB_OUTPUT
+          echo "channels=$NEW_CHANNELS" >> $GITHUB_OUTPUT
+          echo "✅ Playlist mới hợp lệ với $NEW_CHANNELS kênh."
+
+      - name: Protect Playlist with Password
+        if: steps.validate.outputs.valid == 'true'
+        run: |
+          sudo apt-get update && sudo apt-get install -y zip
+          zip -P "${{ secrets.PLAYLIST_PASSWORD }}" -j "${{ env.PROTECTED_FILENAME }}" "${{ env.OUTPUT_FILENAME }}"
+          echo "🔐 Đã nén và bảo vệ tệp playlist.zip thành công."
+
+      - name: Rollback if Validation Failed
+        if: steps.validate.outputs.valid == 'false' && steps.backup.outputs.has_backup == 'true'
+        run: |
+          echo "⚠️ Khôi phục playlist từ bản sao lưu..."
+          mv "${{ env.BACKUP_FILENAME }}" "${{ env.PROTECTED_FILENAME }}"
+          echo "✅ Đã khôi phục thành công."
+
+      - name: Generate README
+        if: steps.validate.outputs.valid == 'true'
+        run: |
+          CHANNELS="${{ steps.validate.outputs.channels }}"
+          UPDATED_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          cat > README.md << EOF
+          # 📺 IPTV Playlist Generator (Protected)
+
+          ![Status](https://github.com/${{ github.repository }}/actions/workflows/update-playlist-protected.yml/badge.svg)
+          ![Channels](https://img.shields.io/badge/channels-${CHANNELS}-success)
+          ![Protected](https://img.shields.io/badge/protection-password-brightgreen)
+          ![Last Updated](https://img.shields.io/badge/updated-${UPDATED_TIME// /-}-blue)
+
+          ## 🚀 Tải Playlist Được Bảo Vệ
+
+          1.  **Tải file:**
+              \`\`\`
+              https://raw.githubusercontent.com/${{ github.repository }}/main/${{ env.PROTECTED_FILENAME }}
+              \`\`\`
+          2.  **Giải nén:** Sử dụng mật khẩu đã được cung cấp để giải nén file \`${{ env.PROTECTED_FILENAME }}\` và nhận file \`${{ env.OUTPUT_FILENAME }}\`.
+          3.  **Sử dụng:** Thêm file \`${{ env.OUTPUT_FILENAME }}\` vào trình phát IPTV của bạn (VLC, Kodi, TiviMate, etc.).
+
+          **Lưu ý:** Playlist được cập nhật tự động 4 lần mỗi ngày. Bạn sẽ cần tải lại và giải nén file mới để có danh sách kênh mới nhất.
+
+          ## 🔐 Cơ Chế Bảo Vệ
+
+          - Playlist cuối cùng được nén vào một file \`.zip\` và được mã hóa bằng mật khẩu.
+          - Mật khẩu được lưu trữ an toàn trong **GitHub Secrets** và không bao giờ bị lộ ra ngoài.
+          - Chỉ những người biết mật khẩu mới có thể truy cập danh sách kênh.
+
+          ---
+          *Generated by GitHub Actions - Zero Downtime & Protected*
+          EOF
+      
+      - name: Commit Protected Playlist
+        if: steps.validate.outputs.valid == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🔄 Update: ${{ steps.validate.outputs.channels }} channels (Protected)"
+          file_pattern: "${{ env.PROTECTED_FILENAME }} README.md iptv_generator.log"
+          commit_user_name: IPTV Bot
+          commit_user_email: actions@github.com
+
+      - name: Cleanup Temporary Files
+        if: always() # Luôn chạy bước này để dọn dẹp
+        run: |
+          rm -f "${{ env.OUTPUT_FILENAME }}" "${{ env.BACKUP_FILENAME }}"
+          echo "🧹 Đã dọn dẹp các tệp tạm thời."
