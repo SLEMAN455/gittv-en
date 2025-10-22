@@ -42,9 +42,9 @@ SOURCES = {
 OUTPUT_FILENAME = "playlist.m3u"
 
 # THÔNG SỐ TỐI ƯU HÓA THỜI GIAN CHẠY
-CHANNEL_CHECK_TIMEOUT = 4   # GIẢM: Giảm từ 8 xuống 4 để giảm thời gian chờ kênh chết/lag
+CHANNEL_CHECK_TIMEOUT = 5   # GIẢM: Giảm từ 8 xuống 4 để giảm thời gian chờ kênh chết/lag
 FETCH_TIMEOUT = 25          # Giữ nguyên, 25 giây là hợp lý
-MAX_CONCURRENT_CHECKS = 100 # TĂNG: Tăng từ 40 lên 100 để kiểm tra song song nhiều hơn
+MAX_CONCURRENT_CHECKS = 150 # TĂNG: Tăng từ 40 lên 100 để kiểm tra song song nhiều hơn
 MAX_RETRIES = 1             # Giữ nguyên, ít retry để chạy nhanh hơn
 
 # BATCH SIZE (xử lý theo batch để tránh memory issues)
