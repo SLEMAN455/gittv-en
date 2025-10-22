@@ -11,7 +11,7 @@ import hashlib
 import sys
 
 # =======================================================================================
-# OPTIMIZED CONFIGURATION FOR FREE TIER
+# CONFIGURATION TỐI ƯU HÓA HIỆU SUẤT
 # =======================================================================================
 
 SOURCES = {
@@ -41,11 +41,11 @@ SOURCES = {
 
 OUTPUT_FILENAME = "playlist.m3u"
 
-# OPTIMIZED TIMEOUTS (giảm thời gian check)
-CHANNEL_CHECK_TIMEOUT = 5  # Giảm từ 12 → 8 giây
-FETCH_TIMEOUT = 25         # Giảm từ 30 → 25 giây
-MAX_CONCURRENT_CHECKS = 40 # Tăng từ 30 → 40 (check nhanh hơn)
-MAX_RETRIES = 1            # Giảm từ 2 → 1 (ít retry hơn)
+# THÔNG SỐ TỐI ƯU HÓA THỜI GIAN CHẠY
+CHANNEL_CHECK_TIMEOUT = 4   # GIẢM: Giảm từ 8 xuống 4 để giảm thời gian chờ kênh chết/lag
+FETCH_TIMEOUT = 25          # Giữ nguyên, 25 giây là hợp lý
+MAX_CONCURRENT_CHECKS = 100 # TĂNG: Tăng từ 40 lên 100 để kiểm tra song song nhiều hơn
+MAX_RETRIES = 1             # Giữ nguyên, ít retry để chạy nhanh hơn
 
 # BATCH SIZE (xử lý theo batch để tránh memory issues)
 BATCH_SIZE = 200
@@ -338,15 +338,15 @@ async def main():
     """Optimized main execution"""
     start_time = datetime.now()
     logging.info("=" * 60)
-    logging.info("IPTV GENERATOR - FREE TIER OPTIMIZED")
+    logging.info("IPTV GENERATOR - PERFORMANCE OPTIMIZED")
     logging.info("=" * 60)
     
     all_channels = []
     
     # Optimized connector
     connector = aiohttp.TCPConnector(
-        limit=60,  # Reduced
-        limit_per_host=15,
+        limit=200,  # Tăng giới hạn tổng thể
+        limit_per_host=20,
         ttl_dns_cache=600,
         force_close=False,
     )
@@ -374,7 +374,7 @@ async def main():
         logging.info(f"Total parsed: {len(all_channels)}")
         
         if not all_channels:
-            logging.error("No channels found!")
+            logging.error("No channels found from any source!")
             return
         
         # Phase 2: Check channels in batches
@@ -390,7 +390,7 @@ async def main():
             await asyncio.gather(*check_tasks)
             
             checked = i + len(batch)
-            if checked % 100 == 0 or checked == len(all_channels):
+            if checked % (BATCH_SIZE * 5) == 0 or checked == len(all_channels):
                 logging.info(f"Progress: {checked}/{len(all_channels)}")
     
     # Phase 3: Filter and generate
@@ -400,7 +400,7 @@ async def main():
     final_channels = filter_and_deduplicate(all_channels)
     
     if not final_channels:
-        logging.error("No working channels!")
+        logging.error("No working channels found after filtering!")
         return
     
     content = generate_m3u_playlist(final_channels)
