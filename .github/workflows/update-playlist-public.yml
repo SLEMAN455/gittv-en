@@ -2,8 +2,8 @@ name: Update IPTV Playlist (Public URL - Auto Refresh)
 
 on:
   schedule:
-    # Chạy 3 lần/ngày vào các thời điểm tối ưu
-    - cron: '0 21,8,14 * * *'
+    # Chạy 2 lần/ngày vào các thời điểm tối ưu
+    - cron: '0 21,9 * * *'
   
   workflow_dispatch:
     inputs:
