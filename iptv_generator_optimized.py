@@ -42,7 +42,7 @@ SOURCES = {
 OUTPUT_FILENAME = "playlist.m3u"
 
 # OPTIMIZED TIMEOUTS (giảm thời gian check)
-CHANNEL_CHECK_TIMEOUT = 8  # Giảm từ 12 → 8 giây
+CHANNEL_CHECK_TIMEOUT = 5  # Giảm từ 12 → 8 giây
 FETCH_TIMEOUT = 25         # Giảm từ 30 → 25 giây
 MAX_CONCURRENT_CHECKS = 40 # Tăng từ 30 → 40 (check nhanh hơn)
 MAX_RETRIES = 1            # Giảm từ 2 → 1 (ít retry hơn)
