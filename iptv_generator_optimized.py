@@ -155,37 +155,35 @@ class IPTVChannel:
     def _calculate_quality_score(self):
         """Calculate quality score based on resolution indicators"""
         text = f"{self.name} {self.attributes.get('group-title', '')}".lower()
-        score = 0
+        score = 50  # BASE SCORE: Giả định trung bình nếu không có thông tin
         
-        # HIGH QUALITY INDICATORS (REQUIRED)
+        # HIGH QUALITY INDICATORS (BONUS)
         if any(kw in text for kw in ['4k', 'uhd', '2160']):
-            score += 100  # 4K/UHD
+            score = 100  # 4K/UHD - Chất lượng cao nhất
         elif any(kw in text for kw in ['1080', 'fhd', 'full hd', '1920']):
-            score += 80   # 1080p/FHD
-        else:
-            # NO 1080P+ INDICATOR = LOW SCORE
-            score = 0
+            score = 80   # 1080p/FHD - Chất lượng tốt
         
-        # PENALTY FOR LOW QUALITY
+        # PENALTY FOR CLEARLY LOW QUALITY
         if any(kw in text for kw in QUALITY_KEYWORDS_EXCLUDE):
-            score -= 50
+            score = 0  # Chắc chắn chất lượng thấp, loại bỏ
         
-        # BONUS FOR HEVC/H265
+        # BONUS FOR HEVC/H265 (codec hiện đại)
         if any(kw in text for kw in ['hevc', 'h265', 'x265']):
-            score += 20
+            score += 15
         
-        self.quality_score = max(0, score)
+        self.quality_score = max(0, min(score, 115))  # Giới hạn 0-115
 
     def is_high_quality(self):
         """Check if channel meets quality requirements"""
-        # Must have quality score >= 80 (at least 1080p)
-        if self.quality_score < 80:
+        # LOẠI BỎ nếu có tag chất lượng thấp rõ ràng (720p, 480p, SD...)
+        if self.quality_score == 0:
             return False
         
-        # Must not be from blocked country
+        # LOẠI BỎ nếu từ quốc gia bị chặn
         if self.country == 'BLOCKED':
             return False
         
+        # CHẤP NHẬN: Kênh có tag 1080p+ HOẶC không có tag gì (score=50)
         return True
 
     def _ensure_required_attributes(self):
@@ -336,7 +334,7 @@ async def check_channel_status(session, channel, semaphore):
 
 def filter_and_deduplicate(channels):
     """Enhanced filtering with quality and ping requirements"""
-    logging.info(f"Starting strict quality filtering on {len(channels)} channels...")
+    logging.info(f"Starting quality filtering on {len(channels)} channels...")
     
     # STEP 1: Filter working channels
     working = [ch for ch in channels if ch.status == 'working']
@@ -345,15 +343,13 @@ def filter_and_deduplicate(channels):
     if not working:
         return []
     
-    # STEP 2: Filter by quality (>= 1080p)
+    # STEP 2: Filter by quality (loại bỏ kênh RÕ RÀNG chất lượng thấp hoặc bị chặn)
     high_quality = [ch for ch in working if ch.is_high_quality()]
-    logging.info(f"High quality (>=1080p, no blocked countries): {len(high_quality)}/{len(working)}")
+    logging.info(f"After quality filter (removed low-quality tags & blocked countries): {len(high_quality)}/{len(working)}")
     
     if not high_quality:
-        logging.warning("No channels meet quality requirements! Relaxing filters slightly...")
-        # Fallback: keep channels with quality_score > 0
-        high_quality = [ch for ch in working if ch.quality_score > 0 and ch.country != 'BLOCKED']
-        logging.info(f"Relaxed filter result: {len(high_quality)} channels")
+        logging.warning("No channels passed quality filter!")
+        return []
     
     # STEP 3: Filter by ping
     fast_channels = [ch for ch in high_quality if ch.ping <= MAX_ACCEPTABLE_PING_MS]
@@ -371,7 +367,7 @@ def filter_and_deduplicate(channels):
     unique_urls = list(url_map.values())
     logging.info(f"After URL deduplication: {len(unique_urls)}")
     
-    # STEP 5: Deduplicate by name per country (keep best quality + ping)
+    # STEP 5: Deduplicate by name per country (ƯU TIÊN chất lượng cao hơn)
     final_map = {}
     for ch in unique_urls:
         key = (ch.name_normalized, ch.country, ch.category)
@@ -379,23 +375,30 @@ def filter_and_deduplicate(channels):
             final_map[key] = ch
         else:
             existing = final_map[key]
-            # Prefer higher quality, then lower ping
+            # Ưu tiên: Chất lượng cao hơn → Ping thấp hơn
             if (ch.quality_score > existing.quality_score or 
                 (ch.quality_score == existing.quality_score and ch.ping < existing.ping)):
                 final_map[key] = ch
     
     final = list(final_map.values())
-    logging.info(f"Final high-quality channels: {len(final)}")
     
     # STEP 6: Sort by quality and ping
     final.sort(key=lambda x: (x.category, -x.quality_score, x.ping))
     
     # Statistics
+    uhd_4k = len([ch for ch in final if ch.quality_score >= 100])
+    fhd_1080 = len([ch for ch in final if 80 <= ch.quality_score < 100])
+    unknown = len([ch for ch in final if ch.quality_score == 50])
+    enhanced = len([ch for ch in final if 50 < ch.quality_score < 80])
+    
+    logging.info(f"Final channels: {len(final)}")
+    logging.info(f"  └─ 4K/UHD: {uhd_4k} | 1080p: {fhd_1080} | Unknown quality: {unknown} | Enhanced: {enhanced}")
+    
     excellent = len([ch for ch in final if ch.ping <= EXCELLENT_PING_MS])
     good = len([ch for ch in final if EXCELLENT_PING_MS < ch.ping <= GOOD_PING_MS])
     acceptable = len([ch for ch in final if ch.ping > GOOD_PING_MS])
     
-    logging.info(f"Quality breakdown - Excellent: {excellent}, Good: {good}, Acceptable: {acceptable}")
+    logging.info(f"Ping breakdown - Excellent: {excellent}, Good: {good}, Acceptable: {acceptable}")
     
     return final
 
@@ -409,8 +412,8 @@ def generate_m3u_playlist(channels):
     
     lines = [
         '#EXTM3U',
-        f'#EXTINF:-1,High Quality Playlist - Updated: {datetime.now().strftime("%Y-%m-%d %H:%M UTC")}',
-        f'#EXTINF:-1,Total Channels: {len(channels)} (All >=1080p, Fast Ping)',
+        f'#EXTINF:-1,Optimized Playlist - Updated: {datetime.now().strftime("%Y-%m-%d %H:%M UTC")}',
+        f'#EXTINF:-1,Total: {len(channels)} channels (Prioritized: 1080p+, Fast Ping, No Low Quality)',
         ''
     ]
     
@@ -430,7 +433,7 @@ def generate_m3u_playlist(channels):
             lines.append(ch.to_m3u_entry())
             lines.append('')
     
-    logging.info(f"Generated playlist with {len(channels)} high-quality channels")
+    logging.info(f"Generated playlist with {len(channels)} optimized channels")
     
     return '\n'.join(lines)
 
@@ -442,8 +445,8 @@ async def main():
     """Main execution with enhanced quality filtering"""
     start_time = datetime.now()
     logging.info("=" * 60)
-    logging.info("IPTV GENERATOR - HIGH QUALITY MODE")
-    logging.info("Requirements: >=1080p, Fast Ping, No Blocked Countries")
+    logging.info("IPTV GENERATOR - OPTIMIZED QUALITY MODE")
+    logging.info("Strategy: Prioritize 1080p+, Remove low-quality tags, Fast ping")
     logging.info("=" * 60)
     
     all_channels = []
@@ -475,16 +478,16 @@ async def main():
             if isinstance(result, list):
                 all_channels.extend(result)
         
-        # Pre-filter by quality before checking
+        # Pre-filter by quality before checking (chỉ loại bỏ kênh RÕ RÀNG chất lượng thấp)
         all_channels = [ch for ch in all_channels if ch.is_high_quality()]
-        logging.info(f"Channels after quality pre-filter: {len(all_channels)}")
+        logging.info(f"Channels after pre-filter (removed low-quality & blocked): {len(all_channels)}")
         
         if not all_channels:
-            logging.error("No channels meet quality requirements!")
+            logging.error("No channels passed pre-filter (all are low-quality or blocked)!")
             return
         
         # Phase 2: Check channels
-        logging.info("\n[2/3] CHECKING CHANNELS (High-Quality Only)")
+        logging.info("\n[2/3] CHECKING CHANNELS (Quality-Optimized)")
         logging.info("-" * 60)
         
         semaphore = asyncio.Semaphore(MAX_CONCURRENT_CHECKS)
@@ -499,13 +502,13 @@ async def main():
                 logging.info(f"Progress: {checked}/{len(all_channels)}")
     
     # Phase 3: Filter and generate
-    logging.info("\n[3/3] GENERATING HIGH-QUALITY OUTPUT")
+    logging.info("\n[3/3] GENERATING OPTIMIZED OUTPUT")
     logging.info("-" * 60)
     
     final_channels = filter_and_deduplicate(all_channels)
     
     if not final_channels:
-        logging.error("No channels passed all quality filters!")
+        logging.error("No channels passed all filters!")
         return
     
     content = generate_m3u_playlist(final_channels)
@@ -519,8 +522,8 @@ async def main():
     seconds = int(duration.total_seconds() % 60)
     
     logging.info("\n" + "=" * 60)
-    logging.info(f"✓✓✓ SUCCESS! Generated {len(final_channels)} HIGH-QUALITY channels")
-    logging.info(f"All channels: >=1080p, ping <={MAX_ACCEPTABLE_PING_MS}ms")
+    logging.info(f"✓✓✓ SUCCESS! Generated {len(final_channels)} OPTIMIZED channels")
+    logging.info(f"Strategy: Prioritized 1080p+, removed low-quality, ping <={MAX_ACCEPTABLE_PING_MS}ms")
     logging.info(f"Execution time: {minutes}m {seconds}s")
     logging.info(f"Playlist saved to: {OUTPUT_FILENAME}")
     logging.info("=" * 60)
