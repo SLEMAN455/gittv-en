@@ -1,10 +1,7 @@
-# Tên tệp: .github/workflows/update-playlist-public.yml
-
 name: Update IPTV Playlist (High Quality - Auto Refresh)
 
 on:
   schedule:
-    # Chạy 2 lần/ngày vào 9h sáng và 9h tối (giờ UTC)
     - cron: '0 9,21 * * *'
   
   workflow_dispatch:
@@ -34,7 +31,6 @@ jobs:
   update-playlist:
     name: Generate High-Quality Playlist
     runs-on: ubuntu-latest
-    # Giới hạn thời gian chạy an toàn là 45 phút
     timeout-minutes: 45
     
     steps:
@@ -54,22 +50,21 @@ jobs:
       
       - name: Configure Run Mode
         run: |
-          # THAY ĐỔI: Sử dụng file mới iptv_generator_high_quality.py
           MODE="${{ github.event.inputs.mode }}"
           if [ "$MODE" == "quick" ]; then
-            sed -i 's/CHANNEL_CHECK_TIMEOUT = 5/CHANNEL_CHECK_TIMEOUT = 3/g' iptv_generator_high_quality.py
-            sed -i 's/MAX_CONCURRENT_CHECKS = 150/MAX_CONCURRENT_CHECKS = 180/g' iptv_generator_high_quality.py
+            sed -i 's/CHANNEL_CHECK_TIMEOUT = 5/CHANNEL_CHECK_TIMEOUT = 3/g' iptv_generator_optimized.py
+            sed -i 's/MAX_CONCURRENT_CHECKS = 150/MAX_CONCURRENT_CHECKS = 180/g' iptv_generator_optimized.py
             echo "⚡ Chế độ Quick được kích hoạt."
           elif [ "$MODE" == "express" ]; then
-            sed -i 's/CHANNEL_CHECK_TIMEOUT = 5/CHANNEL_CHECK_TIMEOUT = 2/g' iptv_generator_high_quality.py
-            sed -i 's/MAX_CONCURRENT_CHECKS = 150/MAX_CONCURRENT_CHECKS = 200/g' iptv_generator_high_quality.py
+            sed -i 's/CHANNEL_CHECK_TIMEOUT = 5/CHANNEL_CHECK_TIMEOUT = 2/g' iptv_generator_optimized.py
+            sed -i 's/MAX_CONCURRENT_CHECKS = 150/MAX_CONCURRENT_CHECKS = 200/g' iptv_generator_optimized.py
             echo "🚀 Chế độ Express được kích hoạt."
           else
             echo "🔄 Chạy ở chế độ Normal (High Quality Mode)."
           fi
       
       - name: Generate High-Quality Playlist
-        run: python iptv_generator_high_quality.py
+        run: python iptv_generator_optimized.py
       
       - name: Validate New Playlist
         id: validate
@@ -80,7 +75,6 @@ jobs:
           fi
           
           NEW_CHANNELS=$(grep -c "^http" "${{ env.OUTPUT_FILENAME }}" || echo "0")
-          # THAY ĐỔI: Yêu cầu tối thiểu giảm xuống 30 kênh (do filter nghiêm ngặt hơn)
           if [ $NEW_CHANNELS -lt 30 ]; then
             echo "❌ Xác thực thất bại: Số lượng kênh quá ít ($NEW_CHANNELS)."
             echo "Để bảo toàn chất lượng, lần cập nhật này sẽ bị hủy và giữ lại playlist cũ."
