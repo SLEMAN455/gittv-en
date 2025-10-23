@@ -16,7 +16,6 @@ import sys
 
 SOURCES = {
     "tv": [
-        # GIỮ NGUYÊN TẤT CẢ 13 SOURCES GỐC
         "https://raw.githubusercontent.com/dishiptv/dish/main/stream.m3u",
         "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8",
         "https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8",
@@ -206,7 +205,7 @@ class IPTVChannel:
         return f"#EXTINF:-1 {' '.join(attrs)},{self.name}\n{self.url}"
 
 # =======================================================================================
-# PARSING (UNCHANGED)
+# PARSING
 # =======================================================================================
 
 def parse_m3u_content(content, category):
@@ -269,7 +268,7 @@ def parse_extinf_line(extinf_line, url, category):
     return IPTVChannel(name, url, attributes, category)
 
 # =======================================================================================
-# FETCHING (UNCHANGED)
+# FETCHING
 # =======================================================================================
 
 async def fetch_source(session, url, category, retry=0):
