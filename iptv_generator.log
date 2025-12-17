@@ -1,133 +1,133 @@
-2025-12-17 09:20:06,097 - INFO - ============================================================
-2025-12-17 09:20:06,097 - INFO - IPTV GENERATOR - OPTIMIZED QUALITY MODE
-2025-12-17 09:20:06,097 - INFO - Strategy: Prioritize 1080p+, Remove low-quality tags, Fast ping
-2025-12-17 09:20:06,097 - INFO - ============================================================
-2025-12-17 09:20:06,097 - INFO - 
+2025-12-17 21:12:43,703 - INFO - ============================================================
+2025-12-17 21:12:43,703 - INFO - IPTV GENERATOR - OPTIMIZED QUALITY MODE
+2025-12-17 21:12:43,703 - INFO - Strategy: Prioritize 1080p+, Remove low-quality tags, Fast ping
+2025-12-17 21:12:43,703 - INFO - ============================================================
+2025-12-17 21:12:43,703 - INFO - 
 [1/3] FETCHING SOURCES
-2025-12-17 09:20:06,097 - INFO - ------------------------------------------------------------
-2025-12-17 09:20:06,098 - INFO - Fetching: https://raw.githubusercontent.com/dishiptv/dish/main/stream.m3u
-2025-12-17 09:20:06,120 - INFO - Fetching: https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
-2025-12-17 09:20:06,120 - INFO - Fetching: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
-2025-12-17 09:20:06,120 - INFO - Fetching: https://iptv-org.github.io/iptv/index.m3u
-2025-12-17 09:20:06,121 - INFO - Fetching: https://raw.githubusercontent.com/binhex/iptv/main/eng.m3u
-2025-12-17 09:20:06,121 - INFO - Fetching: https://raw.githubusercontent.com/serdartas/iptv-playlist/main/refined.m3u
-2025-12-17 09:20:06,121 - INFO - Fetching: https://raw.githubusercontent.com/ipstreet312/freeiptv/master/all.m3u
-2025-12-17 09:20:06,121 - INFO - Fetching: https://raw.githubusercontent.com/sultanarabi161/filoox-bdix/main/playlist.m3u
-2025-12-17 09:20:06,122 - INFO - Fetching: https://raw.githubusercontent.com/Miraz6755/Iptv.m3u/main/DaddyLive.m3u
-2025-12-17 09:20:06,122 - INFO - Fetching: https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/iPTV-FREE-LIST/master/iPTV-Free-List_TV.m3u
-2025-12-17 09:20:06,122 - INFO - Fetching: https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_usa.m3u8
-2025-12-17 09:20:06,122 - INFO - Fetching: https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_uk.m3u8
-2025-12-17 09:20:06,122 - INFO - Fetching: https://raw.githubusercontent.com/HabibSay/free_iptv_m3u8/refs/heads/main/all_channels.m3u
-2025-12-17 09:20:06,122 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/top-movies.m3u
-2025-12-17 09:20:06,123 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/action-movies.m3u
-2025-12-17 09:20:06,123 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/comedy-movies.m3u
-2025-12-17 09:20:06,123 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/horror-movies.m3u
-2025-12-17 09:20:06,203 - INFO - ✓ 1851 channels from https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
-2025-12-17 09:20:06,212 - WARNING - HTTP 404: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
-2025-12-17 09:20:06,501 - INFO - ✓ 10775 channels from https://iptv-org.github.io/iptv/index.m3u
-2025-12-17 09:20:06,512 - INFO - ✓ 57 channels from https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_uk.m3u8
-2025-12-17 09:20:06,512 - INFO - ✓ 20 channels from https://raw.githubusercontent.com/serdartas/iptv-playlist/main/refined.m3u
-2025-12-17 09:20:06,513 - INFO - ✓ 19 channels from https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_usa.m3u8
-2025-12-17 09:20:06,518 - INFO - ✓ 217 channels from https://raw.githubusercontent.com/dishiptv/dish/main/stream.m3u
-2025-12-17 09:20:06,534 - INFO - ✓ 478 channels from https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/iPTV-FREE-LIST/master/iPTV-Free-List_TV.m3u
-2025-12-17 09:20:06,601 - INFO - ✓ 3005 channels from https://raw.githubusercontent.com/ipstreet312/freeiptv/master/all.m3u
-2025-12-17 09:20:06,609 - INFO - ✓ 338 channels from https://raw.githubusercontent.com/Miraz6755/Iptv.m3u/main/DaddyLive.m3u
-2025-12-17 09:20:06,617 - INFO - ✓ 394 channels from https://raw.githubusercontent.com/sultanarabi161/filoox-bdix/main/playlist.m3u
-2025-12-17 09:20:06,682 - INFO - ✓ 2361 channels from https://raw.githubusercontent.com/binhex/iptv/main/eng.m3u
-2025-12-17 09:20:06,785 - INFO - ✓ 3247 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/horror-movies.m3u
-2025-12-17 09:20:08,458 - INFO - ✓ 67050 channels from https://raw.githubusercontent.com/HabibSay/free_iptv_m3u8/refs/heads/main/all_channels.m3u
-2025-12-17 09:20:08,558 - INFO - ✓ 4000 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/top-movies.m3u
-2025-12-17 09:20:08,659 - INFO - ✓ 4000 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/action-movies.m3u
-2025-12-17 09:20:08,659 - INFO - Fetching: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
-2025-12-17 09:20:08,662 - WARNING - HTTP 404: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
-2025-12-17 09:20:08,783 - INFO - ✓ 4000 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/comedy-movies.m3u
-2025-12-17 09:20:08,791 - INFO - Channels after pre-filter (removed low-quality & blocked): 65695
-2025-12-17 09:20:08,791 - INFO - 
+2025-12-17 21:12:43,703 - INFO - ------------------------------------------------------------
+2025-12-17 21:12:43,703 - INFO - Fetching: https://raw.githubusercontent.com/dishiptv/dish/main/stream.m3u
+2025-12-17 21:12:43,726 - INFO - Fetching: https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+2025-12-17 21:12:43,726 - INFO - Fetching: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
+2025-12-17 21:12:43,726 - INFO - Fetching: https://iptv-org.github.io/iptv/index.m3u
+2025-12-17 21:12:43,727 - INFO - Fetching: https://raw.githubusercontent.com/binhex/iptv/main/eng.m3u
+2025-12-17 21:12:43,727 - INFO - Fetching: https://raw.githubusercontent.com/serdartas/iptv-playlist/main/refined.m3u
+2025-12-17 21:12:43,727 - INFO - Fetching: https://raw.githubusercontent.com/ipstreet312/freeiptv/master/all.m3u
+2025-12-17 21:12:43,728 - INFO - Fetching: https://raw.githubusercontent.com/sultanarabi161/filoox-bdix/main/playlist.m3u
+2025-12-17 21:12:43,728 - INFO - Fetching: https://raw.githubusercontent.com/Miraz6755/Iptv.m3u/main/DaddyLive.m3u
+2025-12-17 21:12:43,728 - INFO - Fetching: https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/iPTV-FREE-LIST/master/iPTV-Free-List_TV.m3u
+2025-12-17 21:12:43,728 - INFO - Fetching: https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_usa.m3u8
+2025-12-17 21:12:43,728 - INFO - Fetching: https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_uk.m3u8
+2025-12-17 21:12:43,729 - INFO - Fetching: https://raw.githubusercontent.com/HabibSay/free_iptv_m3u8/refs/heads/main/all_channels.m3u
+2025-12-17 21:12:43,729 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/top-movies.m3u
+2025-12-17 21:12:43,729 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/action-movies.m3u
+2025-12-17 21:12:43,729 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/comedy-movies.m3u
+2025-12-17 21:12:43,729 - INFO - Fetching: https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/horror-movies.m3u
+2025-12-17 21:12:43,831 - INFO - ✓ 1851 channels from https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8
+2025-12-17 21:12:43,844 - INFO - ✓ 57 channels from https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_uk.m3u8
+2025-12-17 21:12:43,844 - WARNING - HTTP 404: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
+2025-12-17 21:12:43,849 - INFO - ✓ 217 channels from https://raw.githubusercontent.com/dishiptv/dish/main/stream.m3u
+2025-12-17 21:12:43,858 - INFO - ✓ 394 channels from https://raw.githubusercontent.com/sultanarabi161/filoox-bdix/main/playlist.m3u
+2025-12-17 21:12:43,859 - INFO - ✓ 20 channels from https://raw.githubusercontent.com/serdartas/iptv-playlist/main/refined.m3u
+2025-12-17 21:12:43,860 - INFO - ✓ 19 channels from https://raw.githubusercontent.com/dp247/IPTV/master/playlists/playlist_usa.m3u8
+2025-12-17 21:12:43,869 - INFO - ✓ 338 channels from https://raw.githubusercontent.com/Miraz6755/Iptv.m3u/main/DaddyLive.m3u
+2025-12-17 21:12:43,938 - INFO - ✓ 3005 channels from https://raw.githubusercontent.com/ipstreet312/freeiptv/master/all.m3u
+2025-12-17 21:12:43,955 - INFO - ✓ 478 channels from https://raw.githubusercontent.com/AAAAAEXQOSyIpN2JZ0ehUQ/iPTV-FREE-LIST/master/iPTV-Free-List_TV.m3u
+2025-12-17 21:12:44,014 - INFO - ✓ 2361 channels from https://raw.githubusercontent.com/binhex/iptv/main/eng.m3u
+2025-12-17 21:12:44,174 - INFO - ✓ 4000 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/action-movies.m3u
+2025-12-17 21:12:45,866 - INFO - ✓ 67050 channels from https://raw.githubusercontent.com/HabibSay/free_iptv_m3u8/refs/heads/main/all_channels.m3u
+2025-12-17 21:12:45,967 - INFO - ✓ 4000 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/comedy-movies.m3u
+2025-12-17 21:12:46,047 - INFO - ✓ 3247 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/horror-movies.m3u
+2025-12-17 21:12:46,147 - INFO - ✓ 4000 channels from https://aymrgknetzpucldhpkwm.supabase.co/storage/v1/object/public/tmdb/top-movies.m3u
+2025-12-17 21:12:46,147 - INFO - Fetching: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
+2025-12-17 21:12:46,408 - INFO - ✓ 10775 channels from https://iptv-org.github.io/iptv/index.m3u
+2025-12-17 21:12:46,408 - WARNING - HTTP 404: https://raw.githubusercontent.com/LS-Station/streamecho/main/StreamEcho.m3u8
+2025-12-17 21:12:46,416 - INFO - Channels after pre-filter (removed low-quality & blocked): 65695
+2025-12-17 21:12:46,416 - INFO - 
 [2/3] CHECKING CHANNELS (Quality-Optimized)
-2025-12-17 09:20:08,791 - INFO - ------------------------------------------------------------
-2025-12-17 09:20:38,625 - INFO - Progress: 1000/65695
-2025-12-17 09:21:08,625 - INFO - Progress: 2000/65695
-2025-12-17 09:21:38,626 - INFO - Progress: 3000/65695
-2025-12-17 09:22:08,625 - INFO - Progress: 4000/65695
-2025-12-17 09:22:38,624 - INFO - Progress: 5000/65695
-2025-12-17 09:23:08,624 - INFO - Progress: 6000/65695
-2025-12-17 09:23:38,624 - INFO - Progress: 7000/65695
-2025-12-17 09:24:05,650 - INFO - Progress: 8000/65695
-2025-12-17 09:24:33,701 - INFO - Progress: 9000/65695
-2025-12-17 09:24:42,776 - INFO - Progress: 10000/65695
-2025-12-17 09:24:51,570 - INFO - Progress: 11000/65695
-2025-12-17 09:25:00,237 - INFO - Progress: 12000/65695
-2025-12-17 09:25:08,883 - INFO - Progress: 13000/65695
-2025-12-17 09:25:17,553 - INFO - Progress: 14000/65695
-2025-12-17 09:25:26,241 - INFO - Progress: 15000/65695
-2025-12-17 09:25:34,797 - INFO - Progress: 16000/65695
-2025-12-17 09:25:43,406 - INFO - Progress: 17000/65695
-2025-12-17 09:25:51,918 - INFO - Progress: 18000/65695
-2025-12-17 09:26:00,558 - INFO - Progress: 19000/65695
-2025-12-17 09:26:09,063 - INFO - Progress: 20000/65695
-2025-12-17 09:26:17,551 - INFO - Progress: 21000/65695
-2025-12-17 09:26:26,314 - INFO - Progress: 22000/65695
-2025-12-17 09:26:34,805 - INFO - Progress: 23000/65695
-2025-12-17 09:26:43,334 - INFO - Progress: 24000/65695
-2025-12-17 09:26:51,827 - INFO - Progress: 25000/65695
-2025-12-17 09:27:00,383 - INFO - Progress: 26000/65695
-2025-12-17 09:27:08,905 - INFO - Progress: 27000/65695
-2025-12-17 09:27:17,404 - INFO - Progress: 28000/65695
-2025-12-17 09:27:25,975 - INFO - Progress: 29000/65695
-2025-12-17 09:27:34,501 - INFO - Progress: 30000/65695
-2025-12-17 09:27:42,985 - INFO - Progress: 31000/65695
-2025-12-17 09:27:51,508 - INFO - Progress: 32000/65695
-2025-12-17 09:28:00,131 - INFO - Progress: 33000/65695
-2025-12-17 09:28:08,605 - INFO - Progress: 34000/65695
-2025-12-17 09:28:17,104 - INFO - Progress: 35000/65695
-2025-12-17 09:28:25,591 - INFO - Progress: 36000/65695
-2025-12-17 09:28:34,091 - INFO - Progress: 37000/65695
-2025-12-17 09:28:42,566 - INFO - Progress: 38000/65695
-2025-12-17 09:28:51,331 - INFO - Progress: 39000/65695
-2025-12-17 09:28:59,900 - INFO - Progress: 40000/65695
-2025-12-17 09:29:08,460 - INFO - Progress: 41000/65695
-2025-12-17 09:29:17,040 - INFO - Progress: 42000/65695
-2025-12-17 09:29:25,603 - INFO - Progress: 43000/65695
-2025-12-17 09:29:34,137 - INFO - Progress: 44000/65695
-2025-12-17 09:29:42,636 - INFO - Progress: 45000/65695
-2025-12-17 09:29:51,128 - INFO - Progress: 46000/65695
-2025-12-17 09:29:59,614 - INFO - Progress: 47000/65695
-2025-12-17 09:30:09,070 - INFO - Progress: 48000/65695
-2025-12-17 09:30:17,580 - INFO - Progress: 49000/65695
-2025-12-17 09:30:26,259 - INFO - Progress: 50000/65695
-2025-12-17 09:30:34,820 - INFO - Progress: 51000/65695
-2025-12-17 09:30:43,364 - INFO - Progress: 52000/65695
-2025-12-17 09:30:51,913 - INFO - Progress: 53000/65695
-2025-12-17 09:31:00,537 - INFO - Progress: 54000/65695
-2025-12-17 09:31:09,228 - INFO - Progress: 55000/65695
-2025-12-17 09:31:17,941 - INFO - Progress: 56000/65695
-2025-12-17 09:31:25,784 - INFO - Progress: 57000/65695
-2025-12-17 09:31:33,855 - INFO - Progress: 58000/65695
-2025-12-17 09:31:41,640 - INFO - Progress: 59000/65695
-2025-12-17 09:31:49,346 - INFO - Progress: 60000/65695
-2025-12-17 09:31:57,225 - INFO - Progress: 61000/65695
-2025-12-17 09:32:04,781 - INFO - Progress: 62000/65695
-2025-12-17 09:32:12,193 - INFO - Progress: 63000/65695
-2025-12-17 09:32:19,759 - INFO - Progress: 64000/65695
-2025-12-17 09:32:27,271 - INFO - Progress: 65000/65695
-2025-12-17 09:32:32,642 - INFO - Progress: 65695/65695
-2025-12-17 09:32:32,643 - INFO - 
+2025-12-17 21:12:46,416 - INFO - ------------------------------------------------------------
+2025-12-17 21:13:17,130 - INFO - Progress: 1000/65695
+2025-12-17 21:13:47,149 - INFO - Progress: 2000/65695
+2025-12-17 21:14:17,130 - INFO - Progress: 3000/65695
+2025-12-17 21:14:47,130 - INFO - Progress: 4000/65695
+2025-12-17 21:15:17,129 - INFO - Progress: 5000/65695
+2025-12-17 21:15:47,131 - INFO - Progress: 6000/65695
+2025-12-17 21:16:17,130 - INFO - Progress: 7000/65695
+2025-12-17 21:16:44,131 - INFO - Progress: 8000/65695
+2025-12-17 21:17:12,733 - INFO - Progress: 9000/65695
+2025-12-17 21:17:22,582 - INFO - Progress: 10000/65695
+2025-12-17 21:17:31,967 - INFO - Progress: 11000/65695
+2025-12-17 21:17:41,643 - INFO - Progress: 12000/65695
+2025-12-17 21:17:50,962 - INFO - Progress: 13000/65695
+2025-12-17 21:18:00,428 - INFO - Progress: 14000/65695
+2025-12-17 21:18:09,709 - INFO - Progress: 15000/65695
+2025-12-17 21:18:18,987 - INFO - Progress: 16000/65695
+2025-12-17 21:18:28,122 - INFO - Progress: 17000/65695
+2025-12-17 21:18:37,281 - INFO - Progress: 18000/65695
+2025-12-17 21:18:46,359 - INFO - Progress: 19000/65695
+2025-12-17 21:18:55,584 - INFO - Progress: 20000/65695
+2025-12-17 21:19:04,908 - INFO - Progress: 21000/65695
+2025-12-17 21:19:13,990 - INFO - Progress: 22000/65695
+2025-12-17 21:19:23,108 - INFO - Progress: 23000/65695
+2025-12-17 21:19:32,242 - INFO - Progress: 24000/65695
+2025-12-17 21:19:41,539 - INFO - Progress: 25000/65695
+2025-12-17 21:19:50,667 - INFO - Progress: 26000/65695
+2025-12-17 21:19:59,831 - INFO - Progress: 27000/65695
+2025-12-17 21:20:09,051 - INFO - Progress: 28000/65695
+2025-12-17 21:20:18,415 - INFO - Progress: 29000/65695
+2025-12-17 21:20:27,572 - INFO - Progress: 30000/65695
+2025-12-17 21:20:36,682 - INFO - Progress: 31000/65695
+2025-12-17 21:20:45,907 - INFO - Progress: 32000/65695
+2025-12-17 21:20:55,042 - INFO - Progress: 33000/65695
+2025-12-17 21:21:04,191 - INFO - Progress: 34000/65695
+2025-12-17 21:21:13,373 - INFO - Progress: 35000/65695
+2025-12-17 21:21:22,601 - INFO - Progress: 36000/65695
+2025-12-17 21:21:31,829 - INFO - Progress: 37000/65695
+2025-12-17 21:21:41,050 - INFO - Progress: 38000/65695
+2025-12-17 21:21:50,104 - INFO - Progress: 39000/65695
+2025-12-17 21:21:59,304 - INFO - Progress: 40000/65695
+2025-12-17 21:22:08,592 - INFO - Progress: 41000/65695
+2025-12-17 21:22:17,734 - INFO - Progress: 42000/65695
+2025-12-17 21:22:26,899 - INFO - Progress: 43000/65695
+2025-12-17 21:22:36,060 - INFO - Progress: 44000/65695
+2025-12-17 21:22:45,310 - INFO - Progress: 45000/65695
+2025-12-17 21:22:54,553 - INFO - Progress: 46000/65695
+2025-12-17 21:23:03,690 - INFO - Progress: 47000/65695
+2025-12-17 21:23:12,878 - INFO - Progress: 48000/65695
+2025-12-17 21:23:22,207 - INFO - Progress: 49000/65695
+2025-12-17 21:23:31,349 - INFO - Progress: 50000/65695
+2025-12-17 21:23:40,511 - INFO - Progress: 51000/65695
+2025-12-17 21:23:49,690 - INFO - Progress: 52000/65695
+2025-12-17 21:23:58,926 - INFO - Progress: 53000/65695
+2025-12-17 21:24:08,236 - INFO - Progress: 54000/65695
+2025-12-17 21:24:17,447 - INFO - Progress: 55000/65695
+2025-12-17 21:24:26,790 - INFO - Progress: 56000/65695
+2025-12-17 21:24:34,565 - INFO - Progress: 57000/65695
+2025-12-17 21:24:41,811 - INFO - Progress: 58000/65695
+2025-12-17 21:24:48,987 - INFO - Progress: 59000/65695
+2025-12-17 21:24:56,232 - INFO - Progress: 60000/65695
+2025-12-17 21:25:03,379 - INFO - Progress: 61000/65695
+2025-12-17 21:25:10,513 - INFO - Progress: 62000/65695
+2025-12-17 21:25:17,609 - INFO - Progress: 63000/65695
+2025-12-17 21:25:24,676 - INFO - Progress: 64000/65695
+2025-12-17 21:25:31,665 - INFO - Progress: 65000/65695
+2025-12-17 21:25:36,566 - INFO - Progress: 65695/65695
+2025-12-17 21:25:36,567 - INFO - 
 [3/3] GENERATING OPTIMIZED OUTPUT
-2025-12-17 09:32:32,643 - INFO - ------------------------------------------------------------
-2025-12-17 09:32:32,643 - INFO - Starting quality filtering on 65695 channels...
-2025-12-17 09:32:32,645 - INFO - Working channels: 4373/65695
-2025-12-17 09:32:32,646 - INFO - After quality filter (removed low-quality tags & blocked countries): 4373/4373
-2025-12-17 09:32:32,647 - INFO - Fast enough (ping <= 3400ms): 4373/4373
-2025-12-17 09:32:32,647 - INFO - After URL deduplication: 3445
-2025-12-17 09:32:32,651 - INFO - Final channels: 3054
-2025-12-17 09:32:32,651 - INFO -   └─ 4K/UHD: 0 | 1080p: 807 | Unknown quality: 2247 | Enhanced: 0
-2025-12-17 09:32:32,652 - INFO - Ping breakdown - Excellent: 2575, Good: 333, Acceptable: 146
-2025-12-17 09:32:32,652 - INFO - Generating high-quality M3U playlist...
-2025-12-17 09:32:32,657 - INFO - Generated playlist with 3054 optimized channels
-2025-12-17 09:32:32,659 - INFO - 
+2025-12-17 21:25:36,567 - INFO - ------------------------------------------------------------
+2025-12-17 21:25:36,567 - INFO - Starting quality filtering on 65695 channels...
+2025-12-17 21:25:36,569 - INFO - Working channels: 4315/65695
+2025-12-17 21:25:36,570 - INFO - After quality filter (removed low-quality tags & blocked countries): 4315/4315
+2025-12-17 21:25:36,570 - INFO - Fast enough (ping <= 3400ms): 4315/4315
+2025-12-17 21:25:36,571 - INFO - After URL deduplication: 3405
+2025-12-17 21:25:36,575 - INFO - Final channels: 3018
+2025-12-17 21:25:36,575 - INFO -   └─ 4K/UHD: 0 | 1080p: 802 | Unknown quality: 2216 | Enhanced: 0
+2025-12-17 21:25:36,576 - INFO - Ping breakdown - Excellent: 2549, Good: 314, Acceptable: 155
+2025-12-17 21:25:36,576 - INFO - Generating high-quality M3U playlist...
+2025-12-17 21:25:36,581 - INFO - Generated playlist with 3018 optimized channels
+2025-12-17 21:25:36,583 - INFO - 
 ============================================================
-2025-12-17 09:32:32,660 - INFO - ✓✓✓ SUCCESS! Generated 3054 OPTIMIZED channels
-2025-12-17 09:32:32,660 - INFO - Strategy: Prioritized 1080p+, removed low-quality, ping <=3400ms
-2025-12-17 09:32:32,660 - INFO - Execution time: 12m 26s
-2025-12-17 09:32:32,660 - INFO - Playlist saved to: playlist.m3u
-2025-12-17 09:32:32,660 - INFO - ============================================================
+2025-12-17 21:25:36,583 - INFO - ✓✓✓ SUCCESS! Generated 3018 OPTIMIZED channels
+2025-12-17 21:25:36,583 - INFO - Strategy: Prioritized 1080p+, removed low-quality, ping <=3400ms
+2025-12-17 21:25:36,583 - INFO - Execution time: 12m 52s
+2025-12-17 21:25:36,583 - INFO - Playlist saved to: playlist.m3u
+2025-12-17 21:25:36,583 - INFO - ============================================================
