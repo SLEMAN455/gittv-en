@@ -3,7 +3,7 @@
 ![Status](https://github.com/SLEMAN455/gittv-en/actions/workflows/update-playlist-public.yml/badge.svg)
 ![Channels](https://img.shields.io/badge/channels-3164-success)
 ![Quality](https://img.shields.io/badge/quality-1080p+-blue)
-![Last Updated](https://img.shields.io/badge/updated-2026-09-16%2014:03%20UTC-blue)
+![Last Updated](https://img.shields.io/badge/updated-2026-09-16%2023:34%20UTC-blue)
 
 ## 🚀 URL Playlist Chất Lượng Cao
 
